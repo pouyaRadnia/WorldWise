@@ -8,7 +8,6 @@ function Sidebar() {
     <div className={styles.sidebar}>
       <Logo />
       <AppNav />
-
       <Footer />
     </div>
   );

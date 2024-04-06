@@ -4,7 +4,8 @@ import { useState } from "react";
 
 import styles from "./Form.module.css";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+
+import BackButton from "./ButtonBack";
 
 export function convertToEmoji(countryCode?: any) {
   const codePoints = countryCode
@@ -15,10 +16,9 @@ export function convertToEmoji(countryCode?: any) {
 }
 
 function Form() {
-  const navigate = useNavigate();
   const [cityName, setCityName] = useState("");
-  const [country, setCountry] = useState("");
-  const [date, setDate] = useState(new Date());
+
+  const [date, setDate] = useState(new Date() as any);
   const [notes, setNotes] = useState("");
 
   return (
@@ -37,7 +37,7 @@ function Form() {
         <label htmlFor="date">When did you go to {cityName}?</label>
         <input
           id="date"
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e: any) => setDate(e.target.value)}
           value={date}
         />
       </div>
@@ -55,15 +55,7 @@ function Form() {
         <Button onClick={() => {}} type="primary">
           Add
         </Button>
-        <Button
-          onClick={(e: any) => {
-            e.preventDefault();
-            navigate(-1);
-          }}
-          type="back"
-        >
-          &larr; Back
-        </Button>
+        <BackButton />
       </div>
     </form>
   );

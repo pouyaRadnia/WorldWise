@@ -16,4 +16,6 @@ export interface Position {
 export interface ICitisesContext {
   cities: ICity[];
   loading: boolean;
+  currentCity: ICity;
+  getCity: (id: string) => void;
 }

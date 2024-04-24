@@ -2,7 +2,7 @@ import styles from "./Button.module.css";
 type Button = {
   children: JSX.Element | string;
   onClick: (e: any) => void;
-  type: "primary" | "back";
+  type: "primary" | "back" | "position";
 };
 export default function Button({ children, onClick, type }: Button) {
   return (

@@ -18,4 +18,5 @@ export interface ICitisesContext {
   loading: boolean;
   currentCity: ICity;
   getCity: (id: string) => void;
+  createCity: (newCity: Omit<ICity, "id">) => void;
 }

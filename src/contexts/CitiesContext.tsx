@@ -13,7 +13,7 @@ import { ICitisesContext, ICity } from "../types/cities";
 const CitiseContext = createContext<ICitisesContext | null>(null);
 const BASE_URL = "http://localhost:9000";
 function CitiseProvider({ children }: { children: ReactNode }) {
-  const [cities, setCities] = useState([]);
+  const [cities, setCities] = useState<ICity[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [currentCity, setCurrentCity] = useState({} as ICity);
   useEffect(function () {
@@ -43,8 +43,28 @@ function CitiseProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     }
   }
+  async function createCity(newCity: Omit<ICity, "id">) {
+    try {
+      setLoading(true);
+      const res = await fetch(`${BASE_URL}/cities/`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setCities((cities) => (cities ? [...cities, data] : [data]));
+    } catch {
+      alert("Ther was an error to loading data");
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
-    <CitiseContext.Provider value={{ cities, loading, currentCity, getCity }}>
+    <CitiseContext.Provider
+      value={{ cities, loading, currentCity, getCity, createCity }}
+    >
       {children}
     </CitiseContext.Provider>
   );
